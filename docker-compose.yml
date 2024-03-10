@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: deposits_api
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '9999:9999'
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=psql
+      - POSTGRES_DB=psql
