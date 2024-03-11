@@ -83,6 +83,7 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
@@ -165,6 +166,9 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
     psych (5.1.2)
       stringio
     puma (6.4.2)
@@ -308,11 +312,13 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  factory_bot
   factory_bot_rails
   faker
   jbuilder
   pg (~> 1.5)
   pry
+  pry-byebug
   puma (>= 5.0)
   rails (~> 7.1.2)
   rspec-rails
