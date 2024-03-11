@@ -63,3 +63,6 @@ curl --request POST \
 Deposits takes a `deposit` object with two fields, `transaction_time` and `amount`.
 `transaction_time` is the UTC datetime the deposit should take place. This datetime needs to be passed in the ISO8061 format. If it is before the tradeline creation date a `422` error will be returned. If the `transaction_time` is in the future the amount will not be applied to the tradeline.
 `Amount` is the amount intended to be applied to the corresponding tradeline. If the `amount` is greater than the balance of the tradeline an `422` error will be returned. Otherwise, the amount will be subtracted from the tradeline balance.
+
+### Tests
+If you wish to run the tests you can run `docker exec -it deposits_api bundle exec rspec`
