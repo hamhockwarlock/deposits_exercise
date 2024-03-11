@@ -24,12 +24,42 @@ Feel free to add any gems to the `Gemfile`, and touch any of the existing code. 
 This exercise is purely API based, and will not have any frontend components. Please do not spend more than 3 hours on this.
 
 ## Setup
+This repo requires `Docker` to run.
+(1) Clone the repo.
+(2) Run `docker-compose up --build` to build the `deposits_api` and `postgres` containers.
+(3) Run the database migrations `docker exec deposits_api rake db:migrate`
+(4) Seed the database with tradelines `docker exec deposits_api rake db:seed`
+(5) Add deposits!
 
-The exercise requires Ruby 3.3.0. Simply clone the repo, and run `bundle` to get started. This will install Rails 7.1.2, and the other specified gems.
+## Usage
 
-## Submission
+### Tradelines
+Tradelines can be requested in the following manner with `cURL`:
 
-Please do not fork the repo; if forked accidentally, please delete the fork. For review, either of the following methods for submission are preferred:
+`curl http://localhost:9999/tradelines`
+Returns all tradelines in a non-paginated manner.
+![Index Tradeline](images/index_tradeline.png)
 
-* Cloning the repository and then uploading it under your Github account for review.
-* Zipping up the directory. 
+`curl http://localhost:9999/tradelines/2`
+Returns a specific tradeline using an id.
+![Show Tradeline](images/show_tradeline.png)
+
+### Deposits
+Deposits can be created in the following manner with `cURL`:
+```
+curl --request POST \
+  --url http://localhost:9999/tradelines/1164/deposits \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"deposit": {
+		"transaction_time": "2024-03-10T21:22:01Z",
+		"amount": 63068.85
+	}
+}'
+```
+![POST Deposit](images/post_deposit.png)
+
+#### Documentation on Deposits
+Deposits takes a `deposit` object with two fields, `transaction_time` and `amount`.
+`transaction_time` is the UTC datetime the deposit should take place. This datetime needs to be passed in the ISO8061 format. If it is before the tradeline creation date a `422` error will be returned. If the `transaction_time` is in the future the amount will not be applied to the tradeline.
+`Amount` is the amount intended to be applied to the corresponding tradeline. If the `amount` is greater than the balance of the tradeline an `422` error will be returned. Otherwise, the amount will be subtracted from the tradeline balance.
