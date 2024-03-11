@@ -25,11 +25,11 @@ This exercise is purely API based, and will not have any frontend components. Pl
 
 ## Setup
 This repo requires `Docker` to run.
-(1) Clone the repo.
-(2) Run `docker-compose up --build` to build the `deposits_api` and `postgres` containers.
-(3) Run the database migrations `docker exec deposits_api rake db:migrate`
-(4) Seed the database with tradelines `docker exec deposits_api rake db:seed`
-(5) Add deposits!
+1. Clone the repo.
+2. Run `docker-compose up --build` to build the `deposits_api` and `postgres` containers.
+3. Run the database migrations `docker exec deposits_api rake db:migrate`
+4. Seed the database with tradelines `docker exec deposits_api rake db:seed`
+5. Add deposits!
 
 ## Usage
 
